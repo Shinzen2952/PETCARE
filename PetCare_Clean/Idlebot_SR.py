@@ -268,7 +268,7 @@ def add_pet():
 
 @app.route('/Home')
 def web():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect("pets.db)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM pets")
