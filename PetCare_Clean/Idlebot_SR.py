@@ -1,10 +1,8 @@
 from flask import Flask, redirect, url_for, render_template, request, flash, session, jsonify
-import sqlite3
-import os
 from werkzeug.utils import secure_filename
-
-import os
+from psycopg2.extras import RealDictCursor
 import psycopg2
+import os
 
 conn = psycopg2.connect(os.environ["DATABASE_URL"])
 
