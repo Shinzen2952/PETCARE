@@ -4,7 +4,11 @@ from psycopg2.extras import RealDictCursor
 import psycopg2
 import os
 
-conn = psycopg2.connect(os.environ["DATABASE_URL"])
+def get_db_connection():
+    return psycopg2.connect(
+        os.environ["DATABASE_URL"],
+        cursor_factory=RealDictCursor
+    )
 
 app = Flask(__name__, template_folder='templates')
 
