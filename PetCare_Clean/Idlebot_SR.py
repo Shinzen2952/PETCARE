@@ -218,7 +218,7 @@ def remove_user(user_id):
 
 
 
-app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(__file__), 'static/uploads')
+app.config['UPLOAD_FOLDER'] = '/tmp/uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/add_pet', methods=['GET', 'POST'])
