@@ -13,6 +13,10 @@ app.secret_key = os.urandom(24)
 from flask import session, jsonify, render_template
 from datetime import datetime
 
+@app.route('/')
+def index():
+    return redirect(url_for('Home'))
+
 @app.route("/adoption_status")
 def adoption_status():
     if "user_id" not in session:
