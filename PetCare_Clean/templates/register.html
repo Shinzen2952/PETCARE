@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='web.css') }}">
+    <title>Register</title>
+</head>
+<body>
+
+
+     <div class="navbar">
+    <a href="/Home" id="homeLink">Home</a>
+    <a href="/authorized" id="authorizedPersonnelLink">Authorized Personnel</a>
+
+    {% if session.get('username') %}
+        <a href="/logout" id="logoutLink">Logout</a>
+    {% else %}
+        <a href="/loging" id="loginLink">Login</a>
+    {% endif %}
+
+    <a href="/register" id="registerLink" class="active">Register</a>
+</div>
+
+</head>
+    <div class="container"> 
+        <h2 class="word">Register</h2>
+
+        <form action="{{ url_for('register') }}" method="post">
+            <div class="message">{{ msg }}</div>
+
+            <input class="textbox" type="text" name="username" placeholder="Enter Username" required>
+            <input class="textbox" type="password" name="password" placeholder="Enter Password" required>
+            <input class="textbox" type="text" name="email" placeholder="Enter Gmail Address" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="Please enter a valid Gmail address (e.g., yourname@gmail.com), no spaces allowed." 
+required>
+
+
+
+            <button class="btn" type="submit">Register</button>
+        </form>
+
+        <p class="bottom">Already have an account? <a href="{{ url_for('loging') }}">Login here</a></p>
+    </div>
+
+   
+    
+
+</body>
+</html>

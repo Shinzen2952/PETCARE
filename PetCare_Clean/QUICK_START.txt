@@ -1,0 +1,85 @@
+╔════════════════════════════════════════════════════════════════╗
+║                  🐾 PETCARE QUICK START GUIDE 🐾               ║
+╚════════════════════════════════════════════════════════════════╝
+
+📍 PROJECT LOCATION:
+   C:\Users\LENOVO THINKPAD L470\Desktop\Project PetCare\
+   Idlebot-main new\Idlebot-main-20251004T022525Z-1-001\
+   Idlebot-main\Idlebot-main\PetCare_Clean
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 EASIEST WAY TO START:
+
+   1. Go to the PetCare_Clean folder
+   2. Double-click "START_SERVER.bat"
+   3. Open your browser
+   4. Go to: http://localhost:5000/Home
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔐 ADMIN LOGIN:
+   Username: admin
+   Password: admin123
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 WHAT'S INCLUDED:
+
+   ✅ Main Application (Idlebot_SR.py)
+   ✅ All HTML Templates (11 files)
+   ✅ All Images & CSS Files
+   ✅ Database Files (users.db, pets.db)
+   ✅ Database Setup Scripts
+   ✅ README.md (Full Documentation)
+   ✅ START_SERVER.bat (Easy Launcher)
+   ✅ requirements.txt (Dependencies)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚙️ FIRST TIME SETUP (One Time Only):
+
+   1. Install Python from python.org (if not installed)
+   2. Open Command Prompt in PetCare_Clean folder
+   3. Run: pip install -r requirements.txt
+   4. Done! Now use START_SERVER.bat to run
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 HOW TO REOPEN AFTER CLOSING:
+
+   Option 1 (Easiest):
+   → Double-click START_SERVER.bat
+
+   Option 2 (Command Line):
+   → Open CMD in folder
+   → Type: python Idlebot_SR.py
+
+   Option 3 (VS Code):
+   → Open folder in VS Code
+   → Open terminal
+   → Type: python Idlebot_SR.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🛑 HOW TO STOP:
+
+   → Press Ctrl + C in the terminal
+   → Or close the command window
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 FOR MORE DETAILS:
+   Read README.md in the same folder
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 TIPS:
+   • Keep the databases (.db files) safe - they contain all data
+   • Uploaded pet images are in static/uploads/
+   • Server runs on http://localhost:5000
+   • Make sure port 5000 is not used by other apps
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🐾 Happy Pet Adopting! 🐾

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='web.css') }}">
+<meta charset="UTF-8">
+<title>🐶 Your Adoption Status</title>
+<style>
+body { font-family: Arial; background-color: #f4f4f4; }
+.container { width: 80%; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px #aaa; }
+img { width: 100px; border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 12px; text-align: center; border-bottom: 1px solid #ddd; }
+th { background-color: #04AA6D; color: white; }
+
+        .status { font-weight: bold; }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+        }
+        .navbar a:hover { background-color: #04AA6D; }
+</style>
+</head>
+<body>
+
+    <div class="navbar">
+    <a href="/Home">Home</a>
+    <a href="/AdoptShelf">Adopt Shelf</a>
+    <a href="/adoption_status" class="active">Adoption status</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="container">
+<h2>🐾 Adoption Status</h2>
+
+<table>
+<tr>
+  <th>Pet Name</th>
+  <th></th>
+  <th>Status</th>
+</tr>
+
+{% for adoption in adoptions %}
+<tr>
+  <td>{{ adoption.pet_name }}</td>
+  <td><img src="{{ url_for('static', filename=adoption.pet_img) }}" alt=""></td>
+  <td class="status">{{ adoption.status }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+</body>
+</html>

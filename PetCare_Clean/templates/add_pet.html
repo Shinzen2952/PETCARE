@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Add Pet 🐾</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='web.css') }}">
+  <style>
+    /* ======= GLOBAL RESET ======= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ======= BACKGROUND ======= */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('{{ url_for("static", filename="dogcat1.jpg") }}') center/cover fixed no-repeat;
+      min-height: 100vh;
+      color: #111827;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ======= NAVBAR ======= */
+    .navbar {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar a {
+      color: #a7f3d0;
+      text-decoration: none;
+      padding: 12px 20px;
+      margin: 0 5px;
+      border-radius: 8px;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      background-color: #22c55e;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ======= HEADER ======= */
+    h2 {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 2em;
+      color: #f0fdf4;
+      text-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+      letter-spacing: 1px;
+    }
+
+    /* ======= FORM CONTAINER ======= */
+    form {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 35px;
+      border-radius: 15px;
+      max-width: 450px;
+      width: 90%;
+      margin: 40px auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(6px);
+      transition: transform 0.3s;
+    }
+
+    form:hover {
+      transform: scale(1.02);
+    }
+
+    /* ======= LABELS & INPUTS ======= */
+    label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+      color: #065f46;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #22c55e;
+      box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    /* ======= BUTTON ======= */
+    button {
+      width: 100%;
+      background-color: #22c55e;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #16a34a;
+      transform: translateY(-1px);
+    }
+
+    /* ======= MESSAGE ======= */
+    .message {
+      text-align: center;
+      font-size: 1em;
+      color: #f0fdf4;
+      margin-top: 10px;
+    }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 1.6em;
+        margin-top: 30px;
+      }
+
+      form {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= NAVBAR ======= -->
+  <div class="navbar">
+    <a href="/Home">Home</a>
+    {% if session.get('username') == 'admin' and session.get('password') == 'admin123' %}
+    <a href="/authorized">Authorized Personnel</a>
+    <a href="/view_orders">View Pet Adoption</a>
+    <a href="/pets">Manage Pets</a>
+    <a href="/add_pet" class="active">Add Pet</a>
+    {% endif %}
+  </div>
+
+  <!-- ======= HEADER ======= -->
+  <h2>Add New Pet 🐾</h2>
+
+  <!-- ======= ADD PET FORM ======= -->
+  <form action="/add_pet" method="POST" enctype="multipart/form-data">
+    <label for="Name">Pet name:</label>
+    <input type="text" name="Name" id="Name" required>
+
+    <label for="Age">Age:</label>
+    <input type="number" name="Age" id="Age" required>
+
+    <label for="Date_Found">Date Found:</label>
+    <input type="date" name="Date_Found" id="Date_Found" max="2026-01-13" required>
+
+    <label for="Characteristics">Characteristics:</label>
+    <input type="text" name="Characteristics" id="Characteristics" required>
+
+    <label for="Information">Information:</label>
+    <textarea name="Information" id="Information" rows="4" placeholder="Enter additional details about the pet..."
+      required></textarea>
+
+    <label for="img">Upload Pet Image:</label>
+    <input type="file" name="img" id="img" accept="image/*" required>
+
+    <button type="submit">➕ Add Pet</button>
+  </form>
+
+  <p class="message">{{ msg }}</p>
+
+</body>
+
+</html>

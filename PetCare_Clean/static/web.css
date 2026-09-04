@@ -1,0 +1,346 @@
+/* 🌟 Global Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: url('dogcat1.jpg') center/cover no-repeat fixed;
+    color: #222;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 🌟 Heading */
+h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 4em;
+    margin-top: 60px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    animation: fadeInDown 1.2s ease;
+    transition: text-shadow 0.4s ease, transform 0.3s ease;
+}
+
+h1:hover {
+    transform: scale(1.05);
+    text-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* 🌟 Navbar */
+.navbar {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInDown 1s ease;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 3px;
+    background: #52cf67;
+    transition: width 0.3s ease;
+    border-radius: 5px;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #52cf67;
+    transform: translateY(-2px);
+}
+
+/* 🌟 Book List Section */
+.book-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 120px 60px 40px;
+    gap: 25px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    margin: 80px auto 40px;
+    width: 90%;
+    scroll-behavior: smooth;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    animation: fadeInUp 1.5s ease;
+}
+
+.book {
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 18px;
+    width: 220px;
+    text-align: center;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: perspective(800px) rotateY(0deg);
+}
+
+.book:hover {
+    transform: perspective(800px) rotateY(6deg) translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #e9f3ff, #ffffff);
+}
+
+.book img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.4s ease;
+}
+
+.book:hover img {
+    transform: scale(1.05);
+}
+
+/* 🌟 Add-to-Shelf Button */
+.add-to-shelf {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #007bff, #00d4ff);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+}
+
+.add-to-shelf:hover {
+    background: linear-gradient(135deg, #0056b3, #00aaff);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+/* 🌟 Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+    animation: fadeIn 0.8s ease;
+}
+
+#closeBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#closeBtn:hover {
+    color: #007bff;
+    transform: scale(1.2);
+}
+
+.form-container {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    width: 360px;
+    max-width: 90%;
+    animation: popUp 0.6s ease;
+}
+
+.form-container h3 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.form-container input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+}
+
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #007bff, #00d4ff);
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.4s ease;
+}
+
+.form-container button:hover {
+    background: linear-gradient(135deg, #0056b3, #00aaff);
+    transform: translateY(-3px);
+}
+
+/* 🌟 Activity Log */
+.activity-log {
+    width: 85%;
+    margin: 50px auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    max-height: 350px;
+    overflow-y: auto;
+    animation: fadeInUp 1.2s ease;
+}
+
+.activity-log h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.activity-entry {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    transition: 0.3s ease;
+}
+
+.activity-entry:hover {
+    background: #f7faff;
+    transform: scale(1.01);
+}
+
+.activity-entry span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 🌟 Footer */
+.footer {
+    background: #0b0b0b;
+    color: #ddd;
+    text-align: center;
+    padding: 25px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-top: 50px;
+    animation: fadeInUp 1.2s ease;
+}
+
+.footer p {
+    margin: 6px 0;
+    transition: 0.3s ease;
+}
+
+.footer p:hover {
+    color: #52cf67;
+}
+
+/* 🌟 Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* 🌟 Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 12px;
+    }
+
+    .book-list {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+    }
+
+    .book {
+        width: 85%;
+    }
+
+    .form-container {
+        width: 90%;
+    }
+}

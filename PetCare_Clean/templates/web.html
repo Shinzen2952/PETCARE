@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🐶 PETCARE 🐱</title>
+  <link rel="icon" type="image/png" href="book.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='web.css') }}">
+
+
+  <style>
+    .adoption-info,
+    .contact {
+      padding: 80px 20px;
+      text-align: center;
+      background: rgba(253, 253, 253, 0.1);
+    }
+
+    .info-container,
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    .adoption-info h2,
+    .contact h2 {
+      color: #00b4d8;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .adoption-info p,
+    .contact p {
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.7;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-details p {
+      margin: 10px 0;
+    }
+
+    .contact-details a {
+      color: #00897b;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-details a:hover {
+      color: #00695c;
+    }
+
+    /* ===== COMMUNITY IMPACT ===== */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .impact-card {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(2, 6, 23, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .impact-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+
+    .impact-card h3 {
+      color: #00b4d8;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .impact-card p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    }
+
+    .impact-card .learn-more {
+      color: var(--accent-2);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .impact-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
+    }
+
+    /* ===== TESTIMONIAL NAVIGATION ===== */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: bold;
+      z-index: 10;
+      opacity: 0.8;
+      transition: all 0.3s;
+    }
+
+    .nav-btn:hover {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+
+    /* ===== GLOBAL RESET ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+    }
+
+    :root {
+      --bg-1: #e8f8ff;
+      --accent: #00b4ff;
+      --accent-2: #28a745;
+      --muted: #6b7280;
+      --card-bg: rgba(255, 255, 255, 0.96);
+    }
+
+    body {
+      min-height: 100vh;
+
+      body {
+        background: linear-gradient(180deg, rgba(20, 162, 1, 0.4), rgba(0, 0, 0, 0.2)),
+          url("/static/dogcat.jpg") center/cover fixed no-repeat;
+      }
+
+      color:#111827;
+      display:flex;
+      flex-direction:column;
+      overflow-x:hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      height: 72px;
+      background: rgba(6, 10, 25, 0.75);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.28);
+    }
+
+    .navbar a {
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all .25s;
+    }
+
+    .navbar a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px);
+    }
+
+    .user-welcome {
+      position: absolute;
+      right: 22px;
+      top: 12px;
+      background: var(--accent-2);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(40, 167, 69, 0.15);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      margin: 32px auto 8px;
+      max-width: 1200px;
+      width: 94%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(203, 236, 239, 0.2), rgba(0, 255, 225, 0.15)), url('bluepaw.jpg') center/cover no-repeat;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      padding: 40px 28px;
+      box-shadow: 0 8px 32px rgba(2, 6, 23, 0.15);
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-title {
+      font-size: 2.3rem;
+      color: #00b4d8;
+      font-weight: 800;
+      margin-bottom: 12px;
+      animation: fadeIn .8s ease .2s both;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-lead {
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+      animation: fadeIn .8s ease .3s both;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-primary {
+      background: var(--accent-2);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(40, 167, 69, 0.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 26px rgba(40, 167, 69, 0.25);
+    }
+
+    .btn-ghost {
+      border: 2px solid rgba(0, 180, 255, 0.2);
+      color: var(--accent);
+      background: transparent;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(0, 180, 255, 0.1);
+    }
+
+    /* ===== SEARCH ===== */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 22px 0;
+      width: 100%;
+      animation: fadeUp 1s ease .3s both;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      width: 90%;
+      max-width: 720px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(2, 6, 23, 0.08);
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .search-box button {
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    .search-box button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 180, 255, 0.25);
+    }
+
+    /* ===== PET LIST ===== */
+    #books-container {
+      max-width: 1200px;
+      width: 94%;
+      margin: 18px auto 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .book {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      width: 250px;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 26px rgba(2, 6, 23, 0.07);
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      animation: fadeUp .8s ease both;
+    }
+
+    .book:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
+    }
+
+    .book img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .book .meta {
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .book h3 {
+      color: #0077b6;
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .book p {
+      color: rgba(31, 41, 55, 0.95);
+      font-size: 0.92rem;
+      line-height: 1.25;
+    }
+
+    .book p strong {
+      color: #023047;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .add-to-shelf {
+      margin-left: auto;
+      background: var(--accent-2);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s;
+    }
+
+    .add-to-shelf:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(40, 167, 69, 0.16);
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery-section {
+      max-width: 1200px;
+      width: 94%;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(2, 6, 23, 0.06);
+      animation: fadeUp 1s ease both;
+    }
+
+    .gallery-title {
+      font-size: 1.8rem;
+      color: #00b4d8;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-wrapper {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+    }
+
+    .gallery-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .gallery-wrapper::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 6px;
+    }
+
+    .gallery-item {
+      flex: 0 0 auto;
+      width: 250px;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      scroll-snap-align: center;
+      transition: transform .3s;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+
+    /* ===== ABOUT / GUIDELINES ===== */
+    .container-card {
+      max-width: 1100px;
+      width: 94%;
+      margin: 28px auto;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: 0 12px 30px rgba(2, 6, 23, 0.06);
+      animation: fadeUp 1s ease both;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .muted {
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    }
+
+    .rules {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      padding-left: 0;
+    }
+
+    .rules li::before {
+      content: "✔";
+      color: var(--accent-2);
+      margin-right: 8px;
+      font-weight: 700;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .carousel {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform .6s cubic-bezier(.16, .8, .24, 1);
+    }
+
+    .slide {
+      min-width: 100%;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.94));
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(2, 6, 23, 0.08);
+    }
+
+    .quote {
+      font-style: italic;
+      color: #4a5568;
+    }
+
+    .author {
+      font-weight: 800;
+      color: #0077b6;
+      margin-top: 8px;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 18px;
+    }
+
+    .contact-card {
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 20px rgba(2, 6, 23, 0.05);
+    }
+
+    .contact-card p {
+      color: rgba(74, 85, 104, 0.95);
+    }
+
+    footer {
+      margin-top: 28px;
+      padding: 18px;
+      text-align: center;
+      background: rgba(6, 10, 25, 0.9);
+      color: #fff;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media(max-width:980px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width:600px) {
+      .book {
+        width: 92%;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <img class="avatar" src="{{ url_for('static', filename='petcare.jpg') }}" alt="Sophia"
+      style="align-items: left; display: flex">
+    <a href="/Home" class="active">Home</a>
+    {% if session.get('username') == 'admin' and session.get('password') == 'admin123' %}
+    <a href="/authorized">Authorized Personnel</a>
+    <a href="/view_orders">View Pet Adoption</a>
+    {% endif %}
+    {% if session.get('user_id') %}
+    <span class="user-welcome">👨🏻‍💼 Welcome, {{ session.get('username') }}</span>
+    <a href="/logout">Logout</a>
+    {% else %}
+    <a href="/loging">Login</a>
+    {% endif %}
+    <a href="/register">Register</a>
+    <a href="/AdoptShelf">AdoptShelf</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="hero">
+    <div class="hero-card">
+      <div class="hero-title" style="color: #00897b;">
+        <h3>Adopt Happiness, One Paw at a Time 🐾</h3>
+      </div>
+      <div class="hero-lead">Give a loving home to a pet in need. Browse available companions and learn how adoption
+        works — we'll guide you through every step.</div>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#books-container">Adopt Now</a>
+        <a class="btn btn-ghost" href="#gallery">Pet Gallery</a>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <div
+          style="background:linear-gradient(90deg,#eaf8ff,#fff);padding:10px 12px;border-radius:10px;box-shadow:0 8px 20px rgba(2,6,23,0.04);">
+          <strong>🔔Open Hours:</strong> Mon–Sat 8:00–17:00
+        </div>
+        <div style="background:linear-gradient(90deg,#f3fff1,#fff);padding:10px 12px;border-radius:10px;">
+          <strong>📝Requirements:</strong> 2 valid IDs
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH -->
+  <div class="search-container">
+    <div class="search-box">
+      <input id="searchBar" type="text" placeholder="🔍 Search pet name...">
+      <button id="searchBtn">Search</button>
+    </div>
+  </div>
+
+  <!-- PET LIST -->
+  <main id="books-container" aria-live="polite">
+    {% for pet in pets %}
+    <article class="book">
+      <img src="{{ url_for('static', filename=pet['img']) }}" alt="{{ pet['Name'] }}">
+      <div class="meta">
+        <h3>{{ pet['Name'] }}</h3>
+        <p><strong>Age:</strong> {{ pet['Age'] }}</p>
+        <p><strong>Date Found:</strong> {{ pet['Date_Found'] }}</p>
+        <p><strong>Characteristics:</strong> {{ pet['Characteristics'] }}</p>
+        <div class="actions">
+          {% if session.get('username') == 'admin' and session.get('password') == 'admin123' %}
+    
+          {% else %}
+          <button class="add-to-shelf">ADOPT</button>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </main>
+
+  <!-- ======= COMMUNITY IMPACT SECTION ======= -->
+  <section class="container-card" id="community-impact">
+    <h2 style="text-align:center; color:var(--accent); margin-bottom:20px;">Community Impact & Education 🐕🐾</h2>
+    <p style="text-align:center; color:var(--muted); max-width:700px; margin:0 auto 32px;">
+      The website boosts pet adoption rates, reduces homelessness, and promotes animal welfare by connecting shelters
+      with adopters.
+      It offers a convenient platform for adoption, educates on responsible ownership, and helps shelters reach broader
+      audiences.
+      This enhances community impact and animal care.
+    </p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <h1> 📈 </h1>
+        <h3>Boosts Adoption Rates</h3>
+        <p>Connects loving families with pets in need — helping more animals find forever homes.</p>
+        <a href="#books-container" class="learn-more">Learn More →</a>
+      </div>
+
+      <div class="impact-card">
+        <h1> 🎖️ </h1>
+        <h3>Promotes Responsible Ownership</h3>
+        <p>Educates adopters on proper pet care, ensuring pets live healthier, happier lives.</p>
+        <a href="#care" class="learn-more">Learn More →</a>
+      </div>
+
+      <div class="impact-card">
+        <h1> 🛡️ </h1>
+        <h3>Supports Animal Welfare</h3>
+        <p>Empowers shelters and communities to work together for better animal welfare and awareness.</p>
+        <a href="#contact" class="learn-more">Learn More →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PET GALLERY (scrollable horizontally) -->
+  <section id="gallery" class="gallery-section">
+    <div class="gallery-title">🐾 Meet Our Lovely Pets Gallery 🐾</div>
+    <div class="gallery-wrapper">
+      <!-- Add images easily below -->
+      <div class="gallery-item"><img src="{{ url_for('static', filename='cathero.jpg') }}" alt="Dog 1"></div>
+      <div class="gallery-item"><img src="{{ url_for('static', filename='images.jpg') }}" alt="Cat 1"></div>
+      <div class="gallery-item"><img src="{{ url_for('static', filename='hugdog.jpg') }}" alt="Dog 2"></div>
+      <div class="gallery-item"><img src="{{ url_for('static', filename='kitten.jpg') }}" alt="Cat 2"></div>
+      <div class="gallery-item"><img src="{{ url_for('static', filename='aspincat.jpg') }}" alt="Dog 3"></div>
+      <div class="gallery-item"><img src="{{ url_for('static', filename='white.jpg') }}" alt="Cat 3"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT / GUIDELINES -->
+  <section id="care" class="container-card">
+    <div class="grid-2">
+      <div>
+        <h3 style="color:var(--accent);margin-bottom:8px;">About PetCare Adoption Center</h3>
+        <p class="muted">PetCare is a community-driven adoption center that helps homeless pets find loving families.
+          Every animal deserves a second chance — a warm home, gentle care, and endless love.</p>
+        <h4 style="margin-top:16px;color:#0b6bd6;">Adoption Guidelines</h4>
+        <ul class="rules" style="margin-top:10px;">
+          <li>Adopter must be 18 years or older.</li>
+          <li>Bring at least two (2) valid IDs upon pickup.</li>
+          <li>Sign adoption agreement and accept post-adoption follow-up.</li>
+          <li>Home visits may be required for some adoptions.</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:#0b6bd6;">How Adoption Works</h4>
+        <div class="timeline">
+          <div class="step">
+            <div class="dot">1</div>
+            <div class="step-body">
+              <h4>Browse Pets</h4>
+              <p class="muted">Explore our available pets and find your perfect match.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="dot">2</div>
+            <div class="step-body">
+              <h4>Submit Form</h4>
+              <p class="muted">Complete an adoption form to get started.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="dot">3</div>
+            <div class="step-body">
+              <h4>Meet & Evaluate</h4>
+              <p class="muted">Meet your pet and ensure compatibility.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="dot">4</div>
+            <div class="step-body">
+              <h4>Adopt & Support</h4>
+              <p class="muted">Bring your new friend home and enjoy lifelong companionship.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="container-card" id="testimonialsCard">
+    <h3 style="color:var(--accent);margin-bottom:8px;text-align:center;">Happy Adopters 🐾</h3>
+
+    <div class="carousel" id="carousel">
+      <button class="nav-btn prev" id="prevBtn">❮</button>
+
+      <div class="slides" id="slides">
+        <div class="slide">
+          <img class="avatar" src="{{ url_for('static', filename='angela.jpg') }}" alt="Angela">
+          <div>
+            <div class="quote">"Adopting from PetCare changed our family for the better. Luna is playful and loving!"
+            </div>
+            <div class="author">— Angela M.</div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img class="avatar" src="{{ url_for('static', filename='james.jpg') }}" alt="Rafael">
+          <div>
+            <div class="quote">"PetCare guided me every step of the way. Bruno has been my best companion ever since!"
+            </div>
+            <div class="author">— Rafael G.</div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img class="avatar" src="{{ url_for('static', filename='sophia.jpg') }}" alt="Sophia">
+          <div>
+            <div class="quote">"The process was smooth, and now Milo is part of our family. Thank you, PetCare!"</div>
+            <div class="author">— Sophia L.</div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img class="avatar" src="{{ url_for('static', filename='daniel.jpg') }}" alt="Daniel">
+          <div>
+            <div class="quote">"I was nervous about adopting, but PetCare made everything easy. Daisy brightens my
+              days!"</div>
+            <div class="author">— Daniel R.</div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img class="avatar" src="{{ url_for('static', filename='kate.jpg') }}" alt="Kate">
+          <div>
+            <div class="quote">"Thanks to PetCare, I found my forever friend Max. He’s the happiest dog ever!"</div>
+            <div class="author">— Kate A.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="nav-btn next" id="nextBtn">❯</button>
+    </div>
+  </section>
+
+  <!-- ======= ADOPTION INFO SECTION ======= -->
+  <section class="adoption-info" id="adoption-info">
+    <div class="info-container">
+      <h2>Before You Adopt</h2>
+      <p>
+        Before welcoming your new furry companion home, please remember to bring at least
+        <strong>two valid IDs</strong> when claiming your adopted pet. This ensures a smooth, secure,
+        and verified adoption process.
+      </p>
+      <p>
+        Our mission is to promote responsible pet ownership and provide every animal
+        with a loving and safe forever home. Thank you for being part of this compassionate cause! ❤️
+      </p>
+    </div>
+  </section>
+
+  <!-- ======= CONTACT SECTION ======= -->
+  <section class="contact" id="contact">
+    <div class="contact-container">
+      <h2>Contact Us</h2>
+      <p>Have questions about adoption or want to learn more about our programs? Reach out to us anytime!</p>
+
+      <div class="contact-details">
+        <p><strong>Email:</strong> <a href="mailto:petcareadoption@gmail.com">petcareadoption@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+63212345678">(02) 1234-5678</a></p>
+        <p><strong>Address:</strong> General Mariano Alvarez, Cavite, Philippines</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======= FOOTER SECTION ======= -->
+  <footer>
+    <div class="footer-container">
+      <p>© 2025 PETCARE — All Rights Reserved.</p>
+      <p>Made with 🐾 and care for animals everywhere.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('revealed');
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll('#heroCard, #heroAside, .container-card, #testimonialsCard')
+      .forEach(el => observer.observe(el));
+
+    // Testimonials simple auto-carousel
+    (function () {
+      const slides = document.getElementById('slides');
+      if (!slides) return;
+      const total = slides.children.length;
+      let idx = 0;
+      let width = slides.clientWidth; // responsive width (100%)
+
+      function go(n) {
+        idx = (n + total) % total;
+        slides.style.transform = 'translateX(' + (-idx * width) + 'px)';
+      }
+
+      // recalc width on resize
+      window.addEventListener('resize', () => {
+        width = slides.clientWidth;
+        go(idx);
+      });
+
+      let timer = setInterval(() => go(idx + 1), 4500);
+
+      // pause on hover
+      const carousel = document.getElementById('carousel');
+      carousel.addEventListener('mouseenter', () => clearInterval(timer));
+      carousel.addEventListener('mouseleave', () => timer = setInterval(() => go(idx + 1), 4500));
+    })();
+
+    // Search functionality (client-side)
+    document.getElementById('searchBtn').addEventListener('click', filterPets);
+    document.getElementById('searchBar').addEventListener('keydown', e => {
+      if (e.key === 'Enter') filterPets();
+    });
+
+    function filterPets() {
+      const q = document.getElementById('searchBar').value.trim().toLowerCase();
+      document.querySelectorAll('#books-container .book').forEach(book => {
+        const title = (book.querySelector('h3')?.textContent || '').toLowerCase();
+        book.style.display = title.includes(q) ? '' : 'none';
+      });
+    }
+
+    // Adopt button: keep your fetch logic (adjust if needed)
+    document.querySelectorAll('.add-to-shelf').forEach((btn, idx) => {
+      btn.addEventListener('click', (e) => {
+        // find parent card info
+        const card = e.target.closest('.book');
+        const title = card.querySelector('h3')?.textContent || ('Pet ' + (idx + 1));
+        const img = card.querySelector('img')?.getAttribute('src') || '';
+
+        // send to server (Flask route must exist)
+        fetch('/add_to_shelf', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, img })
+        }).then(r => r.json()).then(data => {
+          alert(data.message || 'Added to shelf');
+          location.reload();
+        }).catch(err => {
+          console.error(err);
+          alert('Network error');
+        });
+      });
+    });
+  </script>
+
+
+  <script>
+    (function () {
+      const slides = document.getElementById('slides');
+      const carousel = document.getElementById('carousel');
+      if (!slides) return;
+
+      const total = slides.children.length;
+      let idx = 0;
+      let width = slides.clientWidth;
+
+      function go(n) {
+        idx = (n + total) % total;
+        slides.style.transform = 'translateX(' + (-idx * width) + 'px)';
+      }
+
+      // auto-slide
+      let timer = setInterval(() => go(idx + 1), 4500);
+
+      // pause on hover
+      carousel.addEventListener('mouseenter', () => clearInterval(timer));
+      carousel.addEventListener('mouseleave', () => timer = setInterval(() => go(idx + 1), 4500));
+
+      // recalc width on resize
+      window.addEventListener('resize', () => {
+        width = slides.clientWidth;
+        go(idx);
+      });
+
+      // prev/next buttons
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      prevBtn.addEventListener('click', () => go(idx - 1));
+      nextBtn.addEventListener('click', () => go(idx + 1));
+    })();
+  </script>
+
+</body>
+
+</html>

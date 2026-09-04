@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='web.css') }}">
+    <meta charset="UTF-8">
+    <title>Confirm Adoption Information</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .back-link {
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Confirm Adoption Information 🐾</h2>
+        <form method="POST">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="contact">Contact Number</label>
+            <input type="text" id="contact" name="contact" required>
+
+            <label for="birthdate">Birthdate</label>
+            <input type="date" id="birthdate" name="birthdate" max="2026-01-13" required>
+
+            <label for="valid_id_type">Choose Valid ID Type</label>
+            <select id="valid_id_type" name="valid_id_type" required>
+                <option value="">--Select an ID--</option>
+                <option value="Driver's License">Driver's License</option>
+                <option value="Passport">Passport</option>
+                <option value="Student ID">Student ID</option>
+                <option value="National ID">National ID</option>
+                <option value="Voter's ID">Voter's ID</option>
+                <option value="SSS">SSS</option>
+                <option value="NBI">NBI</option>
+                <option value="Birth Certificate">Birth Certificate</option>
+            </select>
+
+            <button type="submit">Confirm</button>
+        </form>
+        <a href="/AdoptShelf" class="back-link">Back to Adopt Shelf</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐶PETCARE🐱</title>
+
+    <link rel="icon" type="image/png" href="book.png">
+
+   <head> 
+
+    <link rel ="stylesheet" type="text/css"  href="{{url_for('static', filename='web.css')}}">
+
+     {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin: 20px;">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const books = document.querySelectorAll(".book");books.forEach((book, index) => {
+        const addButton = document.createElement("button");
+        addButton.textContent = "Add to Shelf";
+        addButton.classList.add("add-to-shelf");
+
+        addButton.onclick = function () {
+            const title = book.querySelector("h3")?.textContent || `Book ${index + 1}`;
+            const img = book.querySelector("img")?.getAttribute("src") || "";
+
+            fetch("/add_to_shelf", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, img })
+            }).then(res => res.json()).then(data => {
+                alert(data.message);
+            });
+        };
+
+        book.appendChild(addButton);
+    });
+});
+
+
+</script>
+
+</head> 
+<body>
+    <div class="navbar">
+        <a href="/Home" id="homeLink" class="active">Home</a>
+        <a href="/authorized" id="authorizedPersonnelLink">Authorized Personnel</a>
+        {% if session.get('user_id') %}
+    <span style="color:white; margin-right: 1px;">Welcome, {{ session.get('username') }}</span>
+    <a href="/logout" id="logoutLink">Logout</a>
+{% else %}
+    <a href="/loging" id="loginLink">Login</a>
+{% endif %}
+
+        <a href="/register" id="registerLink">Register</a>
+        <a href="/Shelf" id="shelfLink">Adoptlist</a>
+        <a href="/my_orders" id="myOrdersLink">My Pets</a>
+    </div>
+
+    <h1>🐶PETCARE🐱</h1>
+
+    <meta charset="UTF-8">
+    <title>Your pets</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='web.css') }}">
+   <div id="shelf">
+    {% if books %}
+        {% for book in books %}
+            <div class="book">
+                <img src="{{ book['img'] }}" alt="{{ book['title'] }}">
+                <h3>{{ book['title'] }}</h3>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Your shelf is empty.</p>
+    {% endif %}
+</div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const shelfDiv = document.getElementById("shelf");
+
+    fetch('/get_shelf')  
+        .then(response => response.json())
+        .then(shelf => {
+            if (shelf.length === 0) {
+                shelfDiv.innerHTML = "<p>Your shelf is empty.</p>";
+            } else {
+                shelf.forEach(book => {
+                    const div = document.createElement("div");
+                    div.className = "book";
+                    div.innerHTML = `
+                        <img src="${book.img}" alt="${book.title}">
+                        <h3>${book.title}</h3>
+                        <button onclick="removeBook('${book.title}')">Remove</button>
+                    `;
+                    shelfDiv.appendChild(div);
+                });
+            }
+        });
+
+    window.removeBook = function(title) {
+        fetch('/remove_book', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `title=${encodeURIComponent(title)}`
+        }).then(() => location.reload());
+    };
+
+    document.getElementById("clearBtn")?.addEventListener("click", function () {
+        fetch('/clear_shelf', { method: 'POST' })
+            .then(() => location.reload());
+    });
+});
+</script>
+<button id="clearBtn" style="margin: 20px auto; display: block;">Clear Shelf</button>
+<form method="POST" action="/confirm_order">
+    <button type="submit" id="confirmBtn">Confirm Order</button>
+</form>
+
+<style>
+#confirmBtn {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 20px auto;
+    display: block;
+}
+#confirmBtn:hover {
+    background-color: #27ae60;
+    transform: scale(1.05);
+}
+</style>
+
+<style>
+    #clearBtn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#clearBtn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+#shelf {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 20px;
+    padding: 20px;
+}
+
+.book {
+    width: 180px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.book:hover {
+    transform: scale(1.03);
+}
+
+.book img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+</style>
+
+</script>
+</body>
+</html>

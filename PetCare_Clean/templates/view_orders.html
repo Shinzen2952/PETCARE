@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='web.css') }}">
+  <meta charset="UTF-8">
+  <title>🐾 View Pet Adoptions</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #f7f7f7;
+      margin: 0;
+    }
+
+    .container {
+      width: 90%;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #aaa;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #eee;
+    }
+
+    img {
+      width: 100px;
+      border-radius: 8px;
+    }
+
+    form {
+      display: inline-block;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .update {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    .delete {
+      background-color: #e60000;
+      color: white;
+    }
+
+    select {
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .flash {
+      background: #fff3cd;
+      padding: 10px;
+      text-align: center;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <a href="/Home" class="{% if request.path == '/Home' %}active{% endif %}">Home</a>
+    {% if session.get('username') == 'admin' and session.get('password') == 'admin123' %}
+    <a href="/authorized" class="{% if request.path == '/authorized' %}active{% endif %}">Authorized Personnel</a>
+    <a href="/view_orders" class="{% if request.path == '/view_orders' %}active{% endif %}">View Pet Adoption</a>
+    <a href="/pets" class="{% if request.path == '/pets' %}active{% endif %}">Manage Pets</a>
+    <a href="/add_pet" class="{% if request.path == '/add_pet' %}active{% endif %}">Add Pet</a>
+    {% endif %}
+  </div>
+
+
+  <div class="container">
+    <h2>🐾 Adoption Management</h2>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash">
+      {% for msg in messages %}
+      <p>{{ msg }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Pet</th>
+        <th></th>
+        <th>User ID</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+
+      {% for adoption in adoptions %}
+      <tr>
+        <td>{{ adoption.id }}</td>
+        <td>{{ adoption.pet_name }}</td>
+        <td><img src="{{ url_for('static', filename=adoption.pet_img) }}" alt=""></td>
+        <td>{{ adoption.user_id }}</td>
+        <td>{{ adoption.status }}</td>
+        <td>
+          <form action="/update_status/{{ adoption.id }}" method="POST">
+            <select name="status">
+              <option value="Checking Confirmation">Checking Confirmation</option>
+              <option value="Evaluating Information">Evaluating Information</option>
+              <option value="Setting Up Schedule">Setting Up Schedule</option>
+              <option value="Ready for Adoption">Ready for Adoption</option>
+              <option value="Finished">Finished</option>
+              <option value="Cancelled">Cancelled</option>
+              <option value="Cancelled">Queuing in line</option>
+            </select>
+            <button class="update" type="submit">Update</button>
+          </form>
+
+          <form action="/delete_adoption/{{ adoption.id }}" method="POST"
+            onsubmit="return confirm('Remove this adoption?');">
+            <button class="delete" type="submit">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+</body>
+
+</html>
