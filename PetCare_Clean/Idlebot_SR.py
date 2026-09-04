@@ -1,10 +1,10 @@
-from flask import Flask, redirect, url_for, render_template, request,flash,session,jsonify
+from flask import Flask, redirect, url_for, render_template, request, flash, session, jsonify
 import sqlite3
-import os 
-app=Flask(__name__,template_folder='templates')
+import os
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+
 UPLOAD_FOLDER = '/tmp/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
