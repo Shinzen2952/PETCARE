@@ -1,4 +1,3 @@
-```python
 from flask import Flask, redirect, url_for, render_template, request, flash, session, jsonify
 from werkzeug.utils import secure_filename
 from psycopg2.extras import RealDictCursor
@@ -972,4 +971,4 @@ if __name__ == "__main__":
         port=int(os.environ.get("PORT", 5000)),
         debug=True
     )
-```
+
