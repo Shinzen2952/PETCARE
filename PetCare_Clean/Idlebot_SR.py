@@ -891,9 +891,10 @@ def clear_users():
     return redirect('/authorized')
 
 def get_db_connection():
-    conn = sqlite3.connect('users.db')   
-    conn.row_factory = sqlite3.Row      
-    return conn
+    return psycopg2.connect(
+        os.environ["DATABASE_URL"],
+        cursor_factory=RealDictCursor
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
