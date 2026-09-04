@@ -3,6 +3,9 @@ import sqlite3
 import os
 from werkzeug.utils import secure_filename
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, 'pets.db')
+
 app = Flask(__name__, template_folder='templates')
 
 UPLOAD_FOLDER = '/tmp/uploads'
