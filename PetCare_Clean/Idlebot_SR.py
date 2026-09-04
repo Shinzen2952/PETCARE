@@ -3,8 +3,10 @@ import sqlite3
 import os
 from werkzeug.utils import secure_filename
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, 'pets.db')
+import os
+import psycopg2
+
+conn = psycopg2.connect(os.environ["DATABASE_URL"])
 
 app = Flask(__name__, template_folder='templates')
 
