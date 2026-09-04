@@ -268,9 +268,10 @@ def web():
     conn = sqlite3.connect('pets.db')
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM pets") 
+    cursor.execute("SELECT * FROM pets")
     pets = cursor.fetchall()
     conn.close()
+
     return render_template("web.html", pets=pets)
 
 
