@@ -1,0 +1,2 @@
+[tool.vercel]
+entrypoint = "PetCare_Clean.Idlebot_SR:app"
