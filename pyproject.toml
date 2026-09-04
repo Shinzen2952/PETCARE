@@ -1,2 +1,11 @@
+[project]
+name = "petcare"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "Flask",
+    "Werkzeug"
+]
+
 [tool.vercel]
 entrypoint = "PetCare_Clean.Idlebot_SR:app"
