@@ -31,12 +31,15 @@ def adoption_status():
 
     user_id = session["user_id"]
 
-    conn = sqlite3.connect("pets.db")
-    conn.row_factory = sqlite3.Row
+    conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM adoptions WHERE user_id = ?", (user_id,))
-    adoptions = cursor.fetchall()
-    conn.close()
+
+    cursor.execute("SELECT * FROM adoptions WHERE user_id = %s",
+    (user_id,)
+                  )
+
+adoptions = cursor.fetchall()
+conn.close()
 
     return render_template("adoption_status.html", adoptions=adoptions)
 
@@ -50,7 +53,10 @@ def update_status(adoption_id):
 
     conn = sqlite3.connect("pets.db")
     cursor = conn.cursor()
-    cursor.execute("UPDATE adoptions SET status = ? WHERE id = ?", (new_status, adoption_id))
+    cursor.execute(
+    "UPDATE adoptions SET status = %s WHERE id = %s",
+    (new_status, adoption_id)
+)
     conn.commit()
     conn.close()
 
