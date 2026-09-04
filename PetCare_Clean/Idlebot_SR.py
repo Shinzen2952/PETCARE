@@ -15,7 +15,7 @@ from datetime import datetime
 
 @app.route('/')
 def index():
-    return redirect(url_for('Home'))
+    return redirect(url_for('web'))
 
 @app.route("/adoption_status")
 def adoption_status():
