@@ -5,6 +5,7 @@ requires-python = ">=3.12"
 dependencies = [
     "Flask",
     "Werkzeug"
+    "psycopg2-binary>=2.9.10,<3",
 ]
 
 [tool.vercel]
